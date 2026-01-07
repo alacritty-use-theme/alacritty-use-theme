@@ -40,15 +40,15 @@ alacritty-use-theme() {
   fi
 
 
-  # converts userInput to themeName
+  # convert userInput to themeName
   case ${userInput} in
     "night")
       # if not set, alacritty will use its default theme :: Tomorrow-night mixed
       # with Tomorrow-night-bright
-      themeName=$nightTheme
+      themeName="$nightTheme"
       ;;
     "day")
-      themeName=$dayTheme
+      themeName="$dayTheme"
       ;;
   esac
 
@@ -63,9 +63,11 @@ alacritty-use-theme() {
   elif [ -f ${alacrittyDir}/themes/themes/${userInput}.toml ]; then
     ln -sf ${alacrittyDir}/themes/themes/${userInput}.toml ${alacrittyDir}/themes/selected.toml
   else
+    if [ ! -f ${alacrittyDir}/themes/themes/${userInput}.toml ] && [ -n "$userInput" ] && ([ -v themeName ] && [ -z $themeName ]); then
+      echo -e "Theme:'${userInput}' was not found in ${alacrittyDir}/themes/themes/"
+    fi
     ln -sf ${scriptDir}/selected.toml.DEFAULT ${alacrittyDir}/themes/selected.toml
   fi
-
 
   touch -m ${alacrittyDir}/alacritty.toml #hack; Update files modify date
 }
