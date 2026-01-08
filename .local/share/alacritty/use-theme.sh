@@ -39,33 +39,26 @@ alacritty-use-theme() {
     userInput=$1
   fi
 
-
-  # convert userInput to themeName
-  case ${userInput} in
-    "night")
-      # if not set, alacritty will use its default theme :: Tomorrow-night mixed
-      # with Tomorrow-night-bright
-      themeName="$nightTheme"
-      ;;
-    "day")
-      themeName="$dayTheme"
-      ;;
-  esac
+  #check aliases
+  eval $(yq -o=shell '.' .config/alacritty/themes/aliases.toml)
+  prefix="aliases_"
+  lookup="${prefix}${userInput}";
+  [ -v $lookup ] && themeName="${!lookup}"
 
   ###
-  # **IF** $themeName is set to a non-zero value (not an empty string, null, or undefined)
+  # **IF** $themeName is set a non-zero value AND $themeName is not 'default'
   # **ELSE IF** the userInput is a theme in the themes folder
   # **OTHERWISE** use the default theme
   ###
 
-  if [ -n "$themeName" ];  then
+  if [ -n "$themeName" ] && [ "$themeName" != "default" ];  then
     ln -sf ${alacrittyDir}/themes/themes/${themeName}.toml ${alacrittyDir}/themes/selected.toml
   elif [ -f ${alacrittyDir}/themes/themes/${userInput}.toml ]; then
     ln -sf ${alacrittyDir}/themes/themes/${userInput}.toml ${alacrittyDir}/themes/selected.toml
   else
-    if [ ! -f ${alacrittyDir}/themes/themes/${userInput}.toml ] && [ -n "$userInput" ] && ([ -v themeName ] && [ -z $themeName ]); then
-      echo -e "Theme:'${userInput}' was not found in ${alacrittyDir}/themes/themes/"
-    fi
+	  if ([ -n "$userInput" ] && [ ! -f ${alacrittyDir}/themes/themes/${userInput}.toml ]) && [ -z $themeName ]; then
+	      echo -e "Theme:'${userInput}' was not found in ${alacrittyDir}/themes/themes/"
+	fi
     ln -sf ${scriptDir}/selected.toml.DEFAULT ${alacrittyDir}/themes/selected.toml
   fi
 
