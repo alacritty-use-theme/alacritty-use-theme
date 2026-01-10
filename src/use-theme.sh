@@ -20,12 +20,12 @@
 
 # TODO What if we switched this to append an import statement that includes a link to the theme.
 alacritty-use-theme() {
-  local scriptDir=/usr/share/alacritty-use-theme
+  local scriptDir="/usr/share/alacritty-use-theme"
 
   local themeName;
   local userInput;
 
-  local alacrittyDir=$HOME/.config/alacritty
+  local alacrittyDir="$HOME/.config/alacritty"
 
   # Set the mood ;)
   # nan na-nan -- ba nan-na nan -- nan-na nan
@@ -47,17 +47,17 @@ alacritty-use-theme() {
   ###
 
   if [ -n "$themeName" ] && [ "$themeName" != "default" ];  then
-    ln -sf ${alacrittyDir}/themes/themes/${themeName}.toml ${alacrittyDir}/themes/selected.toml
-  elif [ -f ${alacrittyDir}/themes/themes/${userInput}.toml ]; then
-    ln -sf ${alacrittyDir}/themes/themes/${userInput}.toml ${alacrittyDir}/themes/selected.toml
+    ln -sf "${alacrittyDir}/themes/themes/${themeName}.toml" "${alacrittyDir}/themes/selected.toml"
+  elif [ -f "${alacrittyDir}/themes/themes/${userInput}.toml" ]; then
+    ln -sf "${alacrittyDir}/themes/themes/${userInput}.toml" "${alacrittyDir}/themes/selected.toml"
   else
-	  if ([ -n "$userInput" ] && [ ! -f ${alacrittyDir}/themes/themes/${userInput}.toml ]) && [ -z $themeName ]; then
+	  if ([ -n "$userInput" ] && [ ! -f "${alacrittyDir}/themes/themes/${userInput}.toml" ]) && [ -z $themeName ]; then
 	      echo -e "Theme:'${userInput}' was not found in ${alacrittyDir}/themes/themes/"
 	  fi
-    ln -sf ${scriptDir}/selected.toml.DEFAULT ${alacrittyDir}/themes/selected.toml
+    ln -sf "${scriptDir}/selected.toml.DEFAULT" "${alacrittyDir}/themes/selected.toml"
   fi
 
-  touch -m ${alacrittyDir}/alacritty.toml #hack; Update files modify date
+  touch -m "${alacrittyDir}/alacritty.toml" #hack; Update files modify date
 }
 
 export -f alacritty-use-theme
