@@ -33,12 +33,14 @@ alacritty-use-theme() {
     userInput=$1
   fi
 
-  #check aliases
-  eval $(yq -o=shell '.' ${alacrittyDir}/themes/aliases.toml)
+  # Check aliases.toml
+  if [ -f "${alacrittyDir}/themes/aliases.toml" ]; then
+    eval $(yq -o=shell '.' ${alacrittyDir}/themes/aliases.toml)
 
-  prefix="aliases_"
-  lookup="${prefix}${userInput}";
-  [ -v $lookup ] && themeName="${!lookup}"
+    prefix="aliases_"
+    lookup="${prefix}${userInput}";
+    [ -v $lookup ] && themeName="${!lookup}"
+  fi
 
   ###
   # **IF** $themeName is set a non-zero value AND $themeName is not 'default'
