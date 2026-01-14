@@ -5,9 +5,11 @@ Small utility to switch the selected theme used by alacritty terminal.
 # Install
 1. `yay -S alacritty-use-theme`
 2. Source the script by adding this to your .bashrc
-`[[ -f /usr/bin/alacritty-use-theme/use-theme.sh ]] && source /usr/bin/alacritty-use-theme/use-theme.sh`
-3. Add themes to the "themes" directory `$HOME/.config/alacritty/themes/<theme>`
-4. Import the selected theme
+```sh
+[[ -f /usr/bin/alacritty-use-theme/use-theme.sh ]] && source /usr/bin/alacritty-use-theme/use-theme.sh
+```
+4. Add themes to the "themes" directory `$HOME/.config/alacritty/themes/<theme>`
+5. Import the selected theme
 
 ```TOML
 [general]
