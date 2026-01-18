@@ -8,8 +8,14 @@ Small utility to switch the selected theme used by alacritty terminal.
 ```sh
 [[ -f /usr/bin/alacritty-use-theme/use-theme.sh ]] && source /usr/bin/alacritty-use-theme/use-theme.sh
 ```
-4. Add themes to the "themes" directory `$HOME/.config/alacritty/themes/<theme>`
-[FAQ > How to add themes]('docs/faq.md')
+4. Add themes to the "themes" directory usually located at
+
+```SH
+$HOME/.config/alacritty/themes/<theme>
+```
+
+_For additional information_ check out the [FAQ > How to add themes](docs/faq.md)
+   
 5. Import the selected theme
 
 ```TOML
@@ -31,7 +37,9 @@ import = ["themes/selected.toml"]
 
 ## Creating aliases
 1. Create an aliases file inside of your alacritty configuration
-`touch $HOME/.config/alacritty/themes/alaises.toml`
+```
+touch $HOME/.config/alacritty/themes/alaises.toml
+```
 
 ```toml
 # aliases.toml
