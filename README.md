@@ -9,6 +9,7 @@ Small utility to switch the selected theme used by alacritty terminal.
 [[ -f /usr/bin/alacritty-use-theme/use-theme.sh ]] && source /usr/bin/alacritty-use-theme/use-theme.sh
 ```
 4. Add themes to the "themes" directory `$HOME/.config/alacritty/themes/<theme>`
+[FAQ > How to add themes]('docs/faq')
 5. Import the selected theme
 
 ```TOML
